@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <form action="/" method="POST" class="text-center">
+        <h3>Enter Product ID</h3>
+        <h6>Please Wait for few minutes as the data is being scrapped in real time</h6>
+        <input type="text" name="productid" id=""> <br>
+        <input type="submit" class="my-2 btn btn-primary">
+    </form>
+
+    {% if p %}
+
+    <div class="container text-center">
+        <div class="row">
+            <h4 class="col-6">
+                Number of Positive Reviews: {{p}} <br>
+                <a href="/positivegraph">Liked Features</a>
+            </h4>
+            <h4 class="col-6">
+                Number of Negative Reviews: {{n}} <br>
+                <a href="/negativegraph">Disliked Features</a>
+            </h4>
+            <h4>
+                <a href="{{ url_for('static', filename='data/final_data.csv') }}" class="btn btn-info">Download Scrapped
+                    Data</a>
+            </h4>
+        </div>
+    </div>
+
+    {% else %}
+
+    <h4>How the System Work ?</h4>
+    <ol>
+        <li>The System takes the Product ID as an Input.</li>
+        <li>The System performs web scrapping and gathers review information about the product whose ID is given as
+            input.</li>
+        <li>Around 500-800 Reviews are scrapped at a time.</li>
+        <li>Then the System Performs Sentimental Analysis on the scrapped review using Bert Sentimental Machine
+            Learning Model.</li>
+        <li>All Reviews are classified into Positive and Negative.</li>
+        <li>Later, the positive and negative reviews are passed through LDA Model and accordingly feature analysis
+            is
+            performed.</li>
+        <li>Separate Graphs of liked and disliked feature are obtained from Positive and Negative Reviews
+            respectively.</li>
+    </ol>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
